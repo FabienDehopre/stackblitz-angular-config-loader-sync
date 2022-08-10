@@ -1,5 +1,5 @@
-import { Injectable } from "@angular/core";
-import { Config } from "../models/config";
+import { Injectable } from '@angular/core';
+import { Config } from '../models/config';
 
 @Injectable()
 export class ConfigLoaderService<T extends Config = Config> {
@@ -14,7 +14,9 @@ export class ConfigLoaderService<T extends Config = Config> {
   }
 
   async initConfig(): Promise<void> {
-    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1', { method: 'GET' });
-    this._config = await res.json() as T;
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+      method: 'GET',
+    });
+    this._config = (await res.json()) as T;
   }
 }

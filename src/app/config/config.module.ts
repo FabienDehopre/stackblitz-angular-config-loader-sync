@@ -8,10 +8,6 @@ export function loadConfig(loader: ConfigLoaderService) {
   };
 }
 
-export function getConfig(loader: ConfigLoaderService) {
-  return loader.config;
-}
-
 @NgModule({})
 export class ConfigModule {
   static forRoot(): ModuleWithProviders<ConfigModule> {
@@ -24,12 +20,7 @@ export class ConfigModule {
           useFactory: loadConfig,
           multi: true,
           deps: [ConfigLoaderService],
-        },
-        {
-          provide: APP_CONFIG,
-          useFactory: getConfig,
-          deps: [ConfigLoaderService],
-        },
+        }
       ],
     };
   }
