@@ -1,13 +1,20 @@
 import { Injectable } from "@angular/core";
-import { ConfigContainerService } from "./config-container.service";
+import { Config } from "../models/config";
 
 @Injectable()
-export class ConfigLoaderService {
-  constructor(private readonly container: ConfigContainerService) {}
+export class ConfigLoaderService<T extends Config = Config> {
+  private _config?: T;
+
+  get config(): T {
+    if (this._config == null) {
+      throw new Error('The config is not yet loaded.');
+    }
+
+    return this._config;
+  }
 
   async initConfig(): Promise<void> {
     const res = await fetch('https://jsonplaceholder.typicode.com/posts/1', { method: 'GET' });
-    const data = await res.json();
-    this.container.setConfig(data);
+    this._config = await res.json() as T;
   }
 }
