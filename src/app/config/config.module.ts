@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
-import { APP_CONFIG } from './injection-token';
+import { CanActivateGuard } from './services/can-activate.guard';
 import { ConfigLoaderService } from './services/config-loader.service';
 
 export function loadConfig(loader: ConfigLoaderService) {
@@ -20,7 +20,8 @@ export class ConfigModule {
           useFactory: loadConfig,
           multi: true,
           deps: [ConfigLoaderService],
-        }
+        },
+        CanActivateGuard,
       ],
     };
   }
